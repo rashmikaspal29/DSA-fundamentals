@@ -1,3 +1,11 @@
+/******************************************
+ *  Author : Rashmi Kaspal
+ *  Created On : 10/08/2026
+ *  File : Kaspal_Project1
+ *  Description: This program simulates a browser’s DNS cache by storing URLs and their corresponding IP addresses
+ *  and managing entries using the Least Recently Used (LRU) policy.
+ *******************************************/
+
 public class CacheEntry{
 
     private String name;

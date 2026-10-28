@@ -1,0 +1,9 @@
+public interface StackInterface<E> {
+    public void push(E o) throws StackOverflowException;
+    public E pop();
+    public E peek();
+    public int top();
+    public boolean isEmpty();
+    public boolean isFull();
+}
+

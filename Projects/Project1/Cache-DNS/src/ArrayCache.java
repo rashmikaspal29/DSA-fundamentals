@@ -1,18 +1,27 @@
+/******************************************
+ *  Author : Rashmi Kaspal
+ *  Created On : 10/08/2026
+ *  File : Kaspal_Project1
+ *  Description: This program simulates a browser’s DNS cache by storing URLs and their corresponding 
+ * IP addresses and managing entries using the Least Recently Used (LRU) policy.
+ *******************************************/
+
+
 public class ArrayCache{
 
-    // entries:CacheEntry[]???
+    
     private CacheEntry[] entries;
     private int numEntries;
     private int numHits;
     private int numMisses;
 
     public ArrayCache() {
-        this(10); // can i extend tho?
+        this(10); 
 
     }
 
     public ArrayCache(int size) {
-        entries = new CacheEntry[size];
+        this.entries = new CacheEntry[size];
         this.numEntries = 0;
         this.numHits = 0;
         this.numMisses = 0;
@@ -27,33 +36,32 @@ public class ArrayCache{
         }
 
         if (numEntries < entries.length) {
+            numEntries++;
             shiftEntries(numEntries);
             entries[0] = new CacheEntry(name, value);
-            numEntries++;
+            
         }
     }
 
 
-    //we have problem here!!! return problem
     public String get(String name) {
 
         CacheEntry tempName;
-        for (int i = 0; i < entries.length - 1; i++) {
-
+        for (int i = 0; i < numEntries; i++) {
             if ((entries[i].getName()).equals(name)) {
                 
-                tempName = entries[i]; // it says to save CacheEntry not the name
-                int currIndex = i;// i just need to find the index here now(you did because you want to shift everything except the last elememnt of the array)
-                shiftEntries(currIndex);
-                entries[0] = tempName; // how do i get the index of that element right there?
+                tempName = entries[i];
+                int currIndex = i;
+                shiftEntries(currIndex+1);
+                entries[0] = tempName; 
                 numHits++;
 
-                return tempName.getValue(); // return ip girllll
+                return tempName.getValue(); 
 
             } 
         } 
         numMisses++;
-        return null;     // if(!(entries[i].getName()).equals(name)){
+        return null;  
 
     }
         
@@ -64,11 +72,6 @@ public class ArrayCache{
 
     public int getMisses() {
         return numMisses;
-    }
-
-    // is it necessary?
-    public int getEntries() {
-        return numEntries;
     }
 
     public void clear() {
@@ -87,8 +90,8 @@ public class ArrayCache{
 
     private String returnCacheArray(){
         String result = "";
-        for(int i = 0; i < entries.length; i++){
-            result += entries[i].getName() + "    " + entries[i].getValue() + "/n";
+        for(int i = 0; i < numEntries; i++){
+            result += entries[i].toString();
         }
         return result;
     }
@@ -97,20 +100,19 @@ public class ArrayCache{
     @Override
     public String toString() {
 
-        return "Entries: " + numEntries+ "\n" +
+        return "Entries: " + numEntries + "\n" +
         "    Hits: " + getHits() + "\n" +
         "   Misses: " + getMisses() + "\n" + 
         returnCacheArray();
 
         // you have  to do for loop here and then return the string
             
-            
+        
     }
 
     private void shiftEntries(int endIndex) {
 
-        for (int i = endIndex; i > 
-            0; i--) {
+        for (int i = endIndex-1; i > 0; i--) {
             entries[i] = entries[i - 1];
         }
     }
