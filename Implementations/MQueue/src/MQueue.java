@@ -1,4 +1,5 @@
-public class MQueue<E> implements QueueInterface<E>{
+import java.util.Iterator;
+public class MQueue<E> implements QueueInterface<E>, Iterable<E>{
 
     //best way to declare linked list
     //LinkedList<Integer> q = new LinkedList<>();
@@ -23,18 +24,44 @@ public class MQueue<E> implements QueueInterface<E>{
         if(isEmpty()){
             throw new Exception("Cannot delete when the list is empty.");
         }
+        Node<E> temp = first;
+        if (first == last) {
+            first = last = null;
+        }
         else{
-            Node<E> temp = first;
+           
             first = first.getNext(); //check this too
             temp.setNext(null);
-            return temp.getData();
-            size--;    //confused when to decrease the size and if i should return first? i think i should
         }
+         size--;  
+         return temp.getData();
+           
     }
         
 
     public boolean isEmpty(){
         return size == 0;
-}
+    }
+    
     public int size(){
         return size;
+    }
+    public Iterator<E> iterator(){
+        return new Iterator(){
+            Node<E> cursor = first;
+            
+            public boolean hasNext(){
+                return cursor != null;
+            }
+            public E next(){
+                if(!hasNext()){
+                    throws new NoSuchElementException;
+                }
+                Node<T> temp = cursor;
+                cursor = cursor.getNext();
+                return temp.getData();
+            }
+        }
+            
+}
+    
